@@ -1,12 +1,16 @@
-  //the core of the module system is the require() function
-  //call the require() function and provide it with a string.
-  //the require() function returns all of the stuff from that module which we need to store in a variable.
-  //the fs variable is a banana but the string 'fs' is *not*.
-const fs = require('fs');
+//require seems to always be passed a string
+//require seems to be the import of node. import is to JS as require is to node.
+// const fs = require("fs"); //*core Node modules we type out the name
+const getNotes = require("../notes-app/notes"); //*our local files we pass the relative path
+const validator = require("validator"); //*for NPM modules we use the package name.
 
-  //fs.writeFile - is async
-  //fs.writeFileSync - is a sync function that takes two arguments. 1. file name 2. the data/content
-  //if the file doesn't exist, it will be created. If the file does exist it will be updated/overwritten.
-// fs.writeFileSync('notes.txt', 'Now I saw.... what?');
+const message = getNotes();
+console.log(message);
 
-fs.appendFileSync('notes.txt', ' have I been appended not upended??')
+
+// console.log(validator.isEmail('brian@aol.com')); //=> true
+// console.log(validator.isEmail('aol.com')); //=> false
+console.log(validator.isURL('www.iwantedBrian.com')) //true //! note isURL is case sensitive
+console.log(validator.isURL('iwantedBrian.com')) // true
+console.log(validator.isURL('iwantedBrian')) // false
+console.log(validator.isURL('www.iwantedBrian')) // true //! what??
