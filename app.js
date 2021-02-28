@@ -2,14 +2,13 @@
 //require seems to be the import of node. import is to JS as require is to node.
 // const fs = require("fs"); //*core Node modules we type out the name
 // const validator = require("validator"); //*for NPM modules we use the package name.
-
 const log = console.log;
+
 //?core mods first
-
+const fs = require("fs");
 //?npm packages second
-const getNotes = require("../notes-app/notes"); //*our local files we pass the relative path
+const notes = require("../notes-app/notes"); //*our local files we pass the relative path //? can be one function or an object of functions
 const yargs = require("yargs");
-
 //?our own files
 const chalk = require("chalk");
 
@@ -24,17 +23,17 @@ yargs.command({
     title: {
       describe: "Note title",
       demandOption: true, //*false by default. Makes Required
-      type: 'string', //*specify required type
+      type: "string", //*specify required type
     },
     body: {
-      describe: 'Note body',
+      describe: "Note body",
       demandOption: true,
-      type: 'string',
-    }
+      type: "string",
+    },
   },
   handler: function (argv) {
-    log('Title: ' + argv.title) //*.title matches with title above within this command config object
-    log('Body: ' + argv.body) //*.title matches with title above within this command config object
+    notes.addNote(argv.title, argv.body);
+    // log("Title: " + argv.title); //*.title matches with title above within this command config object
   },
 });
 
@@ -42,8 +41,15 @@ yargs.command({
 yargs.command({
   command: "remove",
   describe: "remove note",
-  handler: () => {
-    log("Removing an old note");
+  builder: { //*'builder' is a keyword
+    title: {
+      describe: "Note Title",
+      demandOption: true,
+      type: 'string',
+    }
+  },
+  handler: (argv) => {
+    notes.removeNote(argv.title)
   },
 });
 
@@ -64,7 +70,6 @@ yargs.command({
     log("reading is good!");
   },
 });
-
 
 yargs.parse();
 // log(yargs.argv); //*this does something allowing other calls to work if you don't have yargs.parse() called.
