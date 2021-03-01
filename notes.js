@@ -8,7 +8,7 @@ const getNotes = () => {
   return "Your notes...";
 };
 
-const addNote = function (title, body) {
+const addNote = (title, body) => {
   const notes = loadNotes(); //we loadNotes from multiple place so making this a discrete function allows us to reuse without rewriting
 
   const duplicateNotes = notes.filter((note) => {
@@ -31,7 +31,6 @@ const addNote = function (title, body) {
 
 const removeNote = (title) => {
   const notes = loadNotes();
-  
   
   const remainingNotes = notes.filter(note => {
     return note.title !== title
@@ -63,9 +62,19 @@ const loadNotes = () => {
   }
 };
 
+const listNotes = () => {
+  const notes = loadNotes();
+
+  log(chalk.inverse("Your notes: "))
+
+  notes.forEach(note => {
+    log(note.title)
+  })
+}
+
 module.exports = {
   getNotes: getNotes,
   addNote: addNote,
-  removeNote
+  removeNote, listNotes
   // removeNote: removeNote,
 };

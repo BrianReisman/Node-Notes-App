@@ -31,9 +31,9 @@ yargs.command({
       type: "string",
     },
   },
-  handler: function (argv) {
+  handler(argv) {
     notes.addNote(argv.title, argv.body);
-    // log("Title: " + argv.title); //*.title matches with title above within this command config object
+    // log("Title: " + argv.title); //*.title matches with title above within this command config objefct
   },
 });
 
@@ -41,15 +41,16 @@ yargs.command({
 yargs.command({
   command: "remove",
   describe: "remove note",
-  builder: { //*'builder' is a keyword
+  builder: {
+    //*'builder' is a keyword
     title: {
       describe: "Note Title",
       demandOption: true,
-      type: 'string',
-    }
+      type: "string",
+    },
   },
-  handler: (argv) => {
-    notes.removeNote(argv.title)
+  handler(argv) {
+    notes.removeNote(argv.title);
   },
 });
 
@@ -57,8 +58,8 @@ yargs.command({
 yargs.command({
   command: "list",
   describe: "List out notes",
-  handler: function () {
-    log("list stuff!");
+  handler() {
+    notes.listNotes()
   },
 });
 
@@ -66,7 +67,7 @@ yargs.command({
 yargs.command({
   command: "read",
   describe: "read all notes",
-  handler: () => {
+  handler(){
     log("reading is good!");
   },
 });
