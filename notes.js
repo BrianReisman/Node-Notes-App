@@ -8,9 +8,7 @@ const addNote = (title, body) => {
   const notes = loadNotes(); //we loadNotes from multiple place so making this a discrete function allows us to reuse without rewriting
 
   //.find() stops searching after it finds. Find returns undefined if there is no match
-  const duplicateNote = notes.find((note) => {
-    return note.title === title;
-  });
+  const duplicateNote = notes.find((note) => note.title === title);
 
   // const duplicateNotes = notes.filter((note) => {
   //   //returns a subset. if we return true, we keep it, if we return false we trash it
